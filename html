@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- ... (mantenha o head igual) ... -->
+</head>
+<body>
+    <!-- ... (mantenha o container-main igual) ... -->
+
+<script>
+// ... (mantenha as constantes e funções anteriores até gerarPericias)
+
+function gerarPericias() {
+    const container = document.getElementById('pericias');
+    
+    pericias.forEach(pericia => {
+        const div = document.createElement('div');
+        div.className = 'col-md-6 skill-item';
+        div.innerHTML = `
+            <div class="row align-items-center">
+                <div class="col-6">
+                    <h5>${pericia.nome}</h5>
+                    <small>Atributo: ${pericia.atributo}</small>
+                </div>
+                <div class="col-6 text-end">
+                    <div style="display: inline-block; margin-right: 15px;">
+                        <input type="number" id="mod-${pericia.nome}" 
+                               value="0" 
+                               style="width: 60px; margin-right: 5px;">
+                    </div>
+                    <span class="rolar-link" 
+                          onclick="rolarPericia('${pericia.nome}', '${pericia.atributo}')"
+                          style="right: 15px">
+                        Rolar
+                    </span>
+                    <div class="result-box" id="result-${pericia.nome}"></div>
+                </div>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function rolarPericia(nomePericia, atributo) {
+    const valorAtributo = parseInt(document.getElementById(atributo).value);
+    const modificador = parseInt(document.getElementById(`mod-${nomePericia}`).value) || 0;
+    const resultado = rolarDado(20);
+    const total = resultado + valorAtributo + modificador;
+    
+    const resultDiv = document.getElementById(`result-${nomePericia}`);
+    resultDiv.innerHTML = `
+        <strong>${total}</strong><br>
+        <small>(${resultado} + ${valorAtributo} + ${modificador})</small>
+    `;
+}
+
+// ... (mantenha o restante do código igual)
+</script>
+</body>
+</html>
